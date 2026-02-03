@@ -2,7 +2,7 @@ name: Node app
 
 on:
   pull_request:
-    branches: -main
+    branches: -test/ci
 
 jobs:
   ci:
