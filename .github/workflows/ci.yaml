@@ -2,7 +2,7 @@ name: Node app
 
 on:
   push:
-    branches: -test/ci
+    branches: - test/ci
 
 jobs:
   ci:
