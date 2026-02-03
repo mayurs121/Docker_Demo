@@ -1,9 +1,8 @@
-name: CI - Node App
+name: Node app
 
 on:
   pull_request:
-    branches:
-      - main
+    branches: -main
 
 jobs:
   ci:
@@ -22,4 +21,4 @@ jobs:
         run: npm ci
 
       - name: Run tests
-        run: npm test
+        run: npm tests
