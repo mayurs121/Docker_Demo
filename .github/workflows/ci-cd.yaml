@@ -1,5 +1,8 @@
 name: CI-CD Pipeline
 
+env:
+  ACTIONS_STEP_DEBUG: true 
+
 on:
   push:
     branches:
@@ -44,5 +47,5 @@ jobs:
       # 8. Push image
       - name: Push image
         run: |
-          docker tag my-app username/my-app:latest
-          docker push username/my-app:latest
+          docker tag my-app ${{ secrets.DOCKER_USERNAME }}/my-app:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/my-app:latest
