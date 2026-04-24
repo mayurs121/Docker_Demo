@@ -3,12 +3,18 @@ version: "3.9"
 services:
   app:
     build: .
+    working_dir: /app 
+    volumes:
+      - .:/app
+      - /app/node_modules
     ports:
       - "3000:3000"
+    command: npm run start
     environment:
       - MONGO_URL:mongodb://mongo:27017/appdb
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy
     networks:
       - backend-net
   
@@ -18,7 +24,17 @@ services:
       - "27017:27017"
     networks:
      - backend-net
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
   backend-net:
     driver: bridge
+
+volumes:
+  mongo-data:
